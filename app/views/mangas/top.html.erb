@@ -1,0 +1,7 @@
+<h1> Top Manga this week</h1>
+<div>
+  <% @mangas.each do |manga| %>
+    <%= render manga %>
+    <p><%= link_to "Watch this manga", manga %></p>
+  <% end %>
+</div>

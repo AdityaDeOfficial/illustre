@@ -13,6 +13,10 @@ class MangasController < ApplicationController
     end
   end
 
+  def top
+    @mangas = Manga.where(rating: 5)
+  end
+
   private
 
   def manga_params
