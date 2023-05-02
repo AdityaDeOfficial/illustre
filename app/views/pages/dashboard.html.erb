@@ -1,40 +1,42 @@
-<%# user avatar name and social media %>
-<div class="border border-primary d-flex align-items-center">
-  <div><%= image_tag "https://kitt.lewagon.com/placeholder/users/mchancfy", class: "border border-primary avatar"%></div>
-  <div class="border border-primary">
-    <h1><%= current_user.username %></h1>
+<div class="container">
+  <%# user avatar name and social media %>
+  <div class="border border-primary d-flex align-items-center">
+    <div><%= image_tag "https://kitt.lewagon.com/placeholder/users/mchancfy", class: "border border-primary avatar"%></div>
+    <div class="border border-primary">
+      <h1><%= current_user.username %></h1>
 
-    <i class="fa-solid fa-envelope"></i>
+      <i class="fa-solid fa-envelope"></i>
 
-    <% if current_user.twitter.present? %>
-      <i class="fa-brands fa-twitter"></i>
-    <% end %>
+      <% if current_user.twitter.present? %>
+        <i class="fa-brands fa-twitter"></i>
+      <% end %>
 
-    <% if current_user.instagram.present? %>
-      <i class="fa-brands fa-instagram"></i>
-    <% end %>
+      <% if current_user.instagram.present? %>
+        <i class="fa-brands fa-instagram"></i>
+      <% end %>
+    </div>
   </div>
+
+  <%# user bio %>
+  <div class="border border-primary">
+  <p>Bio: <%= current_user.bio %></p>
+  </div>
+
+  <%# bookmark %>
+  <div class="border border-primary d-flex justify-content-between align-items-end">
+    <h3>Bookmarked</h3>
+    <h4>See all -></h4>
+  </div>
+  <hr>
+
+  <%# do each @bookmark.all.manga_id.manga_title cover%>
+
+  <%# My Manga + manga_new_path %>
+  <div class="border border-primary d-flex justify-content-between align-items-end">
+    <h3>My Manga</h3>
+    <h4>See all -></h4>
+  </div>
+  <hr>
+
+  <%# do each @ %>
 </div>
-
-<%# user bio %>
-<div class="border border-primary">
- <p>Bio: <%= current_user.bio %></p>
-</div>
-
-<%# bookmark %>
-<div class="border border-primary d-flex justify-content-between align-items-end">
-  <h3>Bookmarked</h3>
-  <h4>See all -></h4>
-</div>
-<hr>
-
-<%# do each @bookmark.all.manga_id.manga_title cover%>
-
-<%# My Manga + manga_new_path %>
-<div class="border border-primary d-flex justify-content-between align-items-end">
-  <h3>My Manga</h3>
-  <h4>See all -></h4>
-</div>
-<hr>
-
-<%# do each @ %>
