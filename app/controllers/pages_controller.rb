@@ -6,6 +6,5 @@ class PagesController < ApplicationController
 
   def dashboard
 
-    @mangas = current_user.mangas
   end
 end

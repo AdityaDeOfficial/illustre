@@ -16,8 +16,8 @@ Rails.application.routes.draw do
         # for access /chapters/new
         get '/mangas/:manga_id/chapters/new', to: 'chapters#new'
       end
-
-    resources :users
-    get "dashboard", to: "pages#dashboard"
   end
+
+  resources :users
+  get "dashboard", to: "pages#dashboard"
 end
