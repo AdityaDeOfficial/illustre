@@ -6,6 +6,7 @@ class BookmarksController < ApplicationController
 
   def create
     @manga = Manga.find(params[:manga_id])
+    @user = current_user
     @bookmarks = Bookmark.where(id: params.dig(:bookmark, :tag))
     return render_new if @bookmarks.empty?
 
@@ -24,7 +25,7 @@ class BookmarksController < ApplicationController
 
   def render_new
     @bookmark = Bookmark.new
-    @bookmark.errors.add(:base, "A selected already exists")
+    @bookmark.errors.add(:base, "You have already bookmarked it")
     render :new, status: :unprocessable_entity
   end
 end

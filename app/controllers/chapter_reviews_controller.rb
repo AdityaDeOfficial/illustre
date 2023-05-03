@@ -8,6 +8,7 @@ class ChapterReviewsController < ApplicationController
   def create
     @chapter_review = Chapter_review.new(chapter_review_params)
     @chapter_review.chatper = @chatper
+    @chapter_review.user = current_user
     if @chapter_review.save
       redirect_to manga_chapter_path(@chapter)
     else
