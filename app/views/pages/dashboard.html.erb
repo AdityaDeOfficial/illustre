@@ -37,7 +37,7 @@
         <!-- display other manga details here -->
       <% end %>
     <% else %>
-      <p>We can't wait to see your manga!</p>
+      <p>Start watching manga and bookmark them!</p>
     <% end %>
   </div>
 
@@ -58,14 +58,16 @@
 
   <%# display user's manga %>
   <div>
+    <ul></ul>
     <% if @mangas.any? %>
       <% @mangas.each do |manga| %>
-        <%= manga.manga_title %>
+        <li><%= manga.manga_title %></li>
         <!-- display other manga details here -->
       <% end %>
     <% else %>
       <p>We can't wait to see your manga!</p>
     <% end %>
+    </ul>
   </div>
 </div>
 
