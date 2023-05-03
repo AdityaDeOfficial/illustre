@@ -1,5 +1,6 @@
 <div class="container">
   <%# user avatar name and social media %>
+  <%= link_to "Edit Profile", edit_user_registration_path(current_user) %>
   <div class="border border-primary d-flex align-items-center">
     <div><%= image_tag "https://kitt.lewagon.com/placeholder/users/mchancfy", class: "border border-primary avatar"%></div>
     <div class="border border-primary">
@@ -31,7 +32,7 @@
   <hr>
   <%# display user's bookmark %>
   <div>
-    <% if @bookmarks.any? %>
+    <% if !@bookmarks.nil? %>
       <% @bookmarks.each do |bookmark| %>
         <%= bookmark.manga.manga_title %>
         <!-- display other manga details here -->
@@ -59,7 +60,7 @@
   <%# display user's manga %>
   <div>
     <ul></ul>
-    <% if @mangas.any? %>
+    <% if !@mangas.nil? %>
       <% @mangas.each do |manga| %>
         <li><%= manga.manga_title %></li>
         <!-- display other manga details here -->

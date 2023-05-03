@@ -26,7 +26,7 @@ class MangasController < ApplicationController
     @manga = Manga.new(manga_params)
     @manga.user_id = current_user.id
 
-    if @manga.save
+    if @manga.save!
       redirect_to @manga, notice: 'Manga was successfully created.'
     else
       render :new

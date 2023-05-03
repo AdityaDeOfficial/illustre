@@ -5,11 +5,14 @@
     <%= f.error_notification %>
 
     <div class="form-inputs">
+      <%= f.input :avatar,
+                  required: false,
+                  autofocus: true,
+                  input_html: { autocomplete: "avatar" }%>
       <%= f.input :username,
                   required: true,
                   autofocus: true,
-                  input_html: { autocomplete: "email" }%>
-
+                  input_html: { autocomplete: "username" }%>
       <%= f.input :email,
                   required: true,
                   autofocus: true,
@@ -24,22 +27,22 @@
       <%= f.input :nickname,
                   required: false,
                   autofocus: true,
-                  input_html: { autocomplete: "email" }%>
+                  input_html: { autocomplete: "nickname" }%>
       <%= f.input :bio,
                   label: "About Me",
                   required: false,
                   autofocus: true,
-                  input_html: { autocomplete: "email", placeholder: "Tell us about yourself here :D !" }%>
+                  input_html: { autocomplete: "About me", placeholder: "Tell us about yourself here :D !" }%>
       <%= f.input :instagram,
                   label: "Your Instagram",
                   required: false,
                   autofocus: true,
-                  input_html: { autocomplete: "email", placeholder:"Link your Instagram Account here 📸" }%>
+                  input_html: { autocomplete: "instagram url", placeholder:"Link your Instagram Account here 📸" }%>
       <%= f.input :twitter,
                   label: "Your Twitter",
                   required: false,
                   autofocus: true,
-                  input_html: { autocomplete: "email", placeholder:"Link your Twitter Account here🐦" }%>
+                  input_html: { autocomplete: "twitter url", placeholder:"Link your Twitter Account here🐦" }%>
     </div>
 
     <div class="form-actions">
