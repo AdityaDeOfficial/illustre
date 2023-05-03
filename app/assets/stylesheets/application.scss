@@ -12,4 +12,6 @@
 @import "pages/index";
 
 // create-manga scss
-@import "components/create_manga"
+
+@import "mangas/index";
+@import "mangas/show.scss";

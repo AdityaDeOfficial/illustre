@@ -1,0 +1,35 @@
+<%= form_with(model: @manga, local: true) do |form| %>
+  <% if @manga.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@manga.errors.count, "error") %> prohibited this manga from being saved:</h2>
+
+      <ul>
+        <% @manga.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :manga_title %>
+    <%= form.text_field :manga_title %>
+  </div>
+
+  <%# <div class="field">
+    <%= form.label :author %>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description %>
+  </div>
+
+  <div class="field">
+    <%= form.label :cover_image %>
+    <%= form.file_field :cover_image %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

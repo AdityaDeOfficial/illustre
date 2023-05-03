@@ -1,9 +1,9 @@
 class Manga < ApplicationRecord
   belongs_to :user
-  has_one_attached :cover_image
-
+  has_one_attached :photo
+  has_many :chapters, dependent: :destroy
   has_many :bookmarks, dependent: :destroy
-  has_many :users, through: :bookmarks
+  has_many :users, through: :bookmarks #mary?
 end
 
 # has_many :chapter_reviews, dependent: :destroy
