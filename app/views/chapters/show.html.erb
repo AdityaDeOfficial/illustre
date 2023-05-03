@@ -3,3 +3,12 @@
       <br><p>http://localhost:3000/mangas/:manga_id/chapters/:id</p>
   <h2> display the title with @chapter.whateverid</h2>
     <br><p> Manga art goes here</p>
+
+
+<p><strong>Reviews</strong></p>
+<ul>
+  <% @chapter.chatper_reviews.each do |chatper_review| %>
+    <li><%= chatper_review.comment %></li>
+  <% end %>
+</ul>
+<br>

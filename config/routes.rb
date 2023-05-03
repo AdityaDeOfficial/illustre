@@ -4,20 +4,17 @@ Rails.application.routes.draw do
 
  # chapters
   resources :mangas do
+      get 'upload_manga', to: 'mangas#new'
+      resources :chapters
+      resources :chapter_reviews, only: [:new, :create, :destroy]
+
       #get top manga ranking
       collection do
         get :top
       end
 
-      get 'upload_manga', to: 'mangas#new'
-      resources :chapters do
-        # for access /chapters/view
-        get '/mangas/:manga_id/chapters/:id', to: 'chapters#show'
-        # for access /chapters/new
-        get '/mangas/:manga_id/chapters/new', to: 'chapters#new'
-      end
+      resources :manga_reviews, only: [:new, :create, :destroy]
   end
 
-  resources :users
   get "dashboard", to: "pages#dashboard"
 end
