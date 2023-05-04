@@ -1,22 +1,39 @@
-  <div class=container>
-    <h1>Upload Your Chapter</h1>
-    <br><p> page address to get, something like this</p>
-      <p>http://localhost:3000/chapters/new</p>
-      <p>form just loading saving on local for now.. </p>
+<div class="container">
+  <h1>Upload Your Chapter</h1>
+  <p>Enter the URL below to access the upload page:</p>
+  <p>http://localhost:3000/chapters/new</p>
+</div>
+
+<%= form_with(model: @chapter, url: {controller: 'chapters', action: 'create', manga_id: params[:manga_id]}, multipart: true) do |form| %>
+  <% if @chapter.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@chapter.errors.count, "error") %> prohibited this chapter from being saved:</h2>
+
+      <ul>
+        <% @chapter.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :chapter_title, 'Chapter Title' %>
+    <%= form.text_field :chapter_title %>
   </div>
-<br>
-  <div class=container>
-    <%= form_tag({controller: 'chapters', action: 'create', manga_id: params[:manga_id]}, multipart: true) do %>
-      <%= label_tag :chapter_title, 'Chapter Title' %>
-      <%= text_field_tag :chapter_title %>
 
-      <%= label_tag :chapter_number, 'Chapter Number' %>
-      <%= number_field_tag :chapter_number %>
-
-      <%= label_tag :pdf_upload, 'File' %>
-      <%= file_field_tag :pdf_upload %>
-
-    <%= hidden_field_tag :manga_id, params[:manga_id] %>
-    <%= submit_tag 'Upload Chapter' %>
-    <% end %>
+  <div class="field">
+    <%= form.label :chapter_number, 'Chapter Number' %>
+    <%= form.number_field :chapter_number %>
   </div>
+
+  <div class="field">
+    <%= form.label :pdf_upload, 'File' %>
+    <%= form.file_field :pdf_upload %>
+  </div>
+
+  <%= form.hidden_field :manga_id, value: params[:manga_id] %>
+  <div class="actions">
+    <%= form.submit 'Upload Chapter' %>
+  </div>
+<% end %>
