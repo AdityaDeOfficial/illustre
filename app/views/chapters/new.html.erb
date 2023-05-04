@@ -27,9 +27,14 @@
     <%= form.number_field :chapter_number %>
   </div>
 
+  <%# <div class="field">
+    <%= form.label :pdf_upload, 'File' %>
+    <%# <%= form.file_field :pdf_upload %>
+  <%# </div> %>
+
   <div class="field">
     <%= form.label :pdf_upload, 'File' %>
-    <%= form.file_field :pdf_upload %>
+    <%= form.cl_image_upload(:pdf_upload) %>
   </div>
 
   <%= form.hidden_field :manga_id, value: params[:manga_id] %>

@@ -5,7 +5,7 @@ class ChaptersController < ApplicationController
   end
   # retrieve chapters based on an id
   def show
-    @chapter = Chapter.find(params[:id])
+    #@chapter = Chapter.find(params[:id])
   end
   # create new instance of chapter
   def new
