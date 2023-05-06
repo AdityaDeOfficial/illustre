@@ -22,21 +22,52 @@
   <p>Bio: <%= current_user.bio %></p>
   </div>
 
-  <%# bookmark %>
+  <%# bookmark title%>
   <div class="border border-primary d-flex justify-content-between align-items-end">
-    <h3>Bookmarked</h3>
+    <h3>Bookmarked<i class="fa-solid fa-heart" style="color: #f39bd3;"></i></h3>
     <h4>See all -></h4>
   </div>
+
   <hr>
+  <%# display user's bookmark %>
+  <div>
+    <% if @bookmarks.any? %>
+      <% @bookmarks.each do |bookmark| %>
+        <%= bookmark.manga.manga_title %>
+        <!-- display other manga details here -->
+      <% end %>
+    <% else %>
+      <p>We can't wait to see your manga!</p>
+    <% end %>
+  </div>
 
   <%# do each @bookmark.all.manga_id.manga_title cover%>
 
-  <%# My Manga + manga_new_path %>
+  <%# My Manga title + manga_new_path %>
   <div class="border border-primary d-flex justify-content-between align-items-end">
-    <h3>My Manga</h3>
+    <h3>My Manga
+    <%= link_to new_manga_path do %>
+      <i class="fa-solid fa-arrow-up-from-bracket"></i>
+    <% end %>
+    </h3>
     <h4>See all -></h4>
   </div>
   <hr>
-
   <%# do each @ %>
+
+
+  <%# display user's manga %>
+  <div>
+    <% if @mangas.any? %>
+      <% @mangas.each do |manga| %>
+        <%= manga.manga_title %>
+        <!-- display other manga details here -->
+      <% end %>
+    <% else %>
+      <p>We can't wait to see your manga!</p>
+    <% end %>
+  </div>
 </div>
+
+<%= link_to "Hot Manga of this week", top_mangas_path %>
+<hr>

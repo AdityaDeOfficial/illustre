@@ -48,6 +48,10 @@ class MangasController < ApplicationController
     redirect_to mangas_url, notice: 'Manga was successfully destroyed.'
   end
 
+  def top
+    @mangas = Manga.where(rating: 5)
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.

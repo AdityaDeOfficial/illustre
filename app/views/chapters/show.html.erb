@@ -18,3 +18,11 @@
 <%= link_to 'Edit', edit_manga_chapter_path(@manga, @chapter) %> |
 <%= link_to 'Back', manga_chapters_path(@manga) %>
 <%= link_to 'Chapters', manga_chapters_path(@manga) %>
+
+<p><strong>Reviews</strong></p>
+<ul>
+  <% @chapter.chatper_reviews.each do |chatper_review| %>
+    <li><%= chatper_review.comment %></li>
+  <% end %>
+</ul>
+<br>
