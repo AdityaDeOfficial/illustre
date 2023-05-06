@@ -1,0 +1,47 @@
+<p id="notice"><%= notice %></p>
+
+<div class="manga-details">
+  <% if @manga.photo.attached? %>
+    <div class="cover-image">
+      <%= cl_image_tag @manga.photo.key, alt: "Cover Image", class: "your-custom-css-class" %>
+    </div>
+  <% else %>
+    <div class="cover-image no-cover-image">
+      <p>No cover image available</p>
+    </div>
+  <% end %>
+
+  <div class="details">
+    <p>
+      <strong>Manga Title:</strong>
+      <%= @manga.manga_title %>
+    </p>
+
+    <%# <p>
+      <strong>Author:</strong>
+      <%= @manga.author %>
+
+
+    <p>
+      <strong>Description:</strong>
+      <%= @manga.description %>
+    </p>
+
+    <div class="chapters">
+      <h2>Chapters</h2>
+      <ul>
+        <% @chapters.each do |chapter| %>
+          <li>
+            <%= "Chapter #{chapter.chapter_number}: #{chapter.chapter_title}" %>
+            <%= link_to "View PDF", url_for(chapter.pdf), target: "_blank" if chapter.pdf.attached? %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+
+    <div class="buttons">
+      <%= link_to 'Edit', edit_manga_path(@manga), class: "button button-edit" %>
+      <%= link_to 'Back', mangas_path, class: "button button-back" %>
+    </div>
+  </div>
+</div>
