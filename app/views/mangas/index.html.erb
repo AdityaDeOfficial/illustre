@@ -1,0 +1,27 @@
+<div class="container">
+  <h1>Mangas</h1>
+
+  <ul class="manga-list">
+    <% @mangas.each do |manga| %>
+      <li class="manga-item">
+        <% if manga.photo.attached? %>
+          <div class="manga-cover" style="background-image: url(<%= cl_image_path manga.photo.key, width: 200, height: 300, crop: :fill %>)"></div>
+        <% else %>
+          <div class="manga-cover" style="background-color: #ccc;"></div>
+        <% end %>
+        <div class="manga-title"><%= manga.manga_title %></div>
+        <%# <div class="manga-author"><%= manga.author %>
+        <div class="manga-description"><%= manga.description %></div>
+        <div class="action-links">
+          <%= link_to 'Show', manga %>
+          <%= link_to 'Edit', edit_manga_path(manga) %>
+          <%= link_to 'Destroy', manga, method: :delete, data: { confirm: 'Are you sure?' } %>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+
+  <br>
+
+  <%= link_to 'New Manga', new_manga_path, class: "new-manga-link" %>
+</div>
