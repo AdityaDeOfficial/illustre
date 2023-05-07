@@ -4,33 +4,7 @@
       <%= image_tag "https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/logo.png" %>
     <% end %>
 
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-sm-8">
-          <div id="manga-search-bar">
-
-            <%= form_with url: mangas_path, method: :get, class: "d-flex my-3" do %>
-              <%= text_field_tag :query,
-                params[:query],
-                class: "form-control",
-                placeholder: "Find a manga"
-              %>
-              <%= submit_tag "Search", name: "", class: "btn btn-primary" %>
-            <% end %>
-
-            <% if @mangas.any? %>
-              <% @mangas.each do |manga| %>
-                <h4><%= manga.manga_title %></h4>
-                <p><%= manga.description %></p>
-              <% end %>
-            <% else %>
-              <em>Sorry, no mangas found.</em>
-            <% end %>
-          </div>
-        </div>
-      </div>
-    </div>
-
+    <%= render partial: 'mangas/search' %>
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
