@@ -4,12 +4,7 @@ class MangasController < ApplicationController
   # GET /mangas
   def index
     if params[:query].present?
-
-      sql_query = "manga_title ILIKE :query OR description ILIKE :query"
-
-      @mangas = Manga.where(sql_query,
-      query: "%#{params[:query]}%")
-
+      @mangas = Manga.search_by_manga_title_and_description(params[:query])
     else
       @mangas = Manga.all
     end
