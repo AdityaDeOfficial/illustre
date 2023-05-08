@@ -6,4 +6,8 @@ class User < ApplicationRecord
 
   has_many :bookmarks, dependent: :destroy
   has_many :mangas
+
+  def get_bookmark_for(manga)
+    Bookmark.find_by(user: self, manga: manga)
+  end
 end

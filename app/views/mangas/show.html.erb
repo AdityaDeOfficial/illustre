@@ -22,7 +22,11 @@
       <%= @manga.author %>
 
     <%# bookmark button %>
-    <%= button_to "Bookmark", manga_bookmarks_path(@manga), method: :post %>
+    <% if current_user.get_bookmark_for(@manga) %>
+      <%= button_to "Delete Bookmark", bookmark_path(current_user.get_bookmark_for(@manga)), method: :delete %>
+    <% else %>
+      <%= button_to "Create Bookmark", manga_bookmarks_path(@manga), method: :post %>
+    <% end %>
 
     <p>
       <strong>Description:</strong>
