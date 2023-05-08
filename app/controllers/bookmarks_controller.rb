@@ -1,7 +1,8 @@
 class BookmarksController < ApplicationController
   def create
+    # @manga = Manga.find(params[:manga_id])
     @manga = Manga.find(params[:manga_id])
-    @bookmarks = Bookmark.new(bookmark_params)
+    @bookmark = Bookmark.new(bookmark_params)
     @bookmark.user = current_user
     @bookmark.manga = @manga
     if @bookmark.save!

@@ -21,6 +21,8 @@
       <strong>Author:</strong>
       <%= @manga.author %>
 
+    <%# bookmark button %>
+    <%= button_to "Bookmark", manga_bookmarks_path(@manga), method: :post %>
 
     <p>
       <strong>Description:</strong>

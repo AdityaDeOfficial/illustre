@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :mangas do
     resources :chapters, shallow: true
     resources :chapter_reviews, only: [:new, :create, :destroy]
-    resources :bookmarks, only: [:create]
+    resources :bookmarks, only: [:create, :destroy]
     #get top manga ranking
     collection do
       get :top
