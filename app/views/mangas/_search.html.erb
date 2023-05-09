@@ -1,0 +1,25 @@
+<div class="container" data-controller="navbar-manga-search">
+  <div class="row justify-content-center">
+    <div class="col-sm-8">
+      <%= form_with url: mangas_path, method: :get, class: "d-flex",
+          form: {id: "search-form"},
+          data: {action: "submit->navbar-manga-search#submit"} do %>
+        <%= text_field_tag :query,
+          params[:query],
+          class: "form-control",
+          placeholder: "Find a manga" %>
+        <%= submit_tag "Search", name: "", class: "btn btn-primary" %>
+      <% end %>
+
+      <div data-navbar-manga-search-target="results">
+        <% if @mangas.any? %>
+          <% @mangas.each do |manga| %>
+            <%= render 'mangas/results', manga: manga %>
+          <% end %>
+        <% else %>
+          <em>Sorry, no mangas found.</em>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
