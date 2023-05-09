@@ -1,28 +1,210 @@
-<p>
-  <strong>Chapter Number:</strong>
-  <%= @chapter.chapter_number %>
-</p>
+<style>
+  .chapter-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 1rem;
+  }
 
-<p>
-  <strong>Chapter Title:</strong>
-  <%= @chapter.chapter_title %>
-</p>
+  .chapter-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+  }
 
-<p>
-  <strong>PDF Files:</strong>
-  <% @chapter.pdf_files.each do |pdf_file| %>
-    <%= link_to pdf_file.filename.to_s, rails_blob_path(pdf_file, disposition: "attachment") %><br>
+  .chapter-header h2 {
+    margin: 0;
+  }
+
+  .chapter-photos {
+    overflow-y: scroll;
+    max-height: 600px;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 0;
+    align-items: center;
+  }
+
+  .chapter-photo {
+    width: 700px;
+    height: 600px;
+    margin-bottom: 1rem;
+  }
+
+  .chapter-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+  }
+
+  .button {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background-color: #A8EACE;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+  }
+
+  .button:hover {
+    background-color: #0056b3;
+  }
+
+  .form-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #eaeaea;
+  border-radius: 5px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #eaeaea;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.submit-btn {
+  background-color: #f47521;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+  }
+
+  h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .form-container,
+  .reviews-container {
+    background-color: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  }
+
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  textarea,
+  select {
+    width: 100%;
+    padding: 6px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  input[type="submit"] {
+    background-color: #f89406;
+    color: #fff;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  li {
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #f4f4f4;
+    border-radius: 5px;
+  }
+
+  .user-email {
+    font-weight: bold;
+  }
+
+</style>
+
+<div class="chapter-container">
+  <div class="chapter-header">
+    <h2>Chapter <%= @chapter.chapter_number %>: <%= @chapter.chapter_title %></h2>
+  </div>
+
+  <% if @chapter.chapter_photos.attached? %>
+    <h3>Chapter Pages:</h3>
+    <div class="chapter-photos">
+      <% @chapter.chapter_photos.each do |photo| %>
+        <%= cl_image_tag photo.key, width: 500, height: 500, crop: :fill, alt: "Chapter Photo", class: "chapter-photo" %>
+      <% end %>
+    </div>
   <% end %>
-</p>
 
-<%= link_to 'Edit', edit_manga_chapter_path(@manga, @chapter) %> |
-<%= link_to 'Back', manga_chapters_path(@manga) %>
-<%= link_to 'Chapters', manga_chapters_path(@manga) %>
+  <div class="chapter-actions">
+    <%= link_to 'Edit', edit_manga_chapter_path(@manga, @chapter), class: 'button' %> |
+    <%= link_to 'Back', manga_chapters_path(@manga), class: 'button' %>
+  </div>
+</div>
 
-<p><strong>Reviews</strong></p>
-<ul>
-  <% @chapter.chatper_reviews.each do |chatper_review| %>
-    <li><%= chatper_review.comment %></li>
+<!-- Add a new chapter review -->
+<div class="form-container">
+  <h2>Add a chapter review</h2>
+  <%= form_with url: manga_chapter_chapter_reviews_path(@chapter.manga, @chapter), local: true do |form| %>
+    <div>
+      <%= form.label :content %>
+      <%= form.text_area "chapter_review[content]", required: true %>
+    </div>
+    <div>
+      <%= form.label :rating %>
+      <%= form.select "chapter_review[rating]", (1..5).to_a, required: true %>
+    </div>
+    <div>
+      <%= form.submit "Add Review" %>
+    </div>
   <% end %>
-</ul>
-<br>
+</div>
+
+<!-- Display chapter reviews -->
+<div class="reviews-container">
+  <h2>Chapter Reviews</h2>
+  <% if @chapter.chapter_reviews.any? %>
+    <ul>
+      <% @chapter.chapter_reviews.each do |review| %>
+        <li>
+          <span class="user-email">User:</span> <%= review.user.email %> <br>
+          <strong>Content:</strong> <%= review.content %> <br>
+          <strong>Rating:</strong> <%= review.rating %>/5
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>No reviews yet. Be the first to add a review!</p>
+  <% end %>
+</div>

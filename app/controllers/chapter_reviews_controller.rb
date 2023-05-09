@@ -1,19 +1,34 @@
 class ChapterReviewsController < ApplicationController
   before_action :set_chapter
-
-  def new
-    @chapter_review = Chapter_review.new
-  end
+  before_action :set_chapter_review, only: [:update, :destroy]
 
   def create
-    @chapter_review = Chapter_review.new(chapter_review_params)
-    @chapter_review.chatper = @chatper
-    @chapter_review.user = current_user
+    @chapter_review = @chapter.chapter_reviews.build(chapter_review_params)
+    @chapter_review.user = current_user # Assumes you have a method to get the current user
+
     if @chapter_review.save
-      redirect_to manga_chapter_path(@chapter)
+      flash[:notice] = "Review successfully created."
+      redirect_to manga_chapter_path(@chapter.manga, @chapter)
     else
-      render :new, status: :unprocessable_entity
+      flash[:alert] = "Error creating review. Please try again."
+      render "chapters/show"
     end
+  end
+
+  def update
+    if @chapter_review.update(chapter_review_params)
+      flash[:notice] = "Review successfully updated."
+      redirect_to manga_chapter_path(@chapter.manga, @chapter)
+    else
+      flash[:alert] = "Error updating review. Please try again."
+      render "chapters/show"
+    end
+  end
+
+  def destroy
+    @chapter_review.destroy
+    flash[:notice] = "Review successfully deleted."
+    redirect_to manga_chapter_path(@chapter.manga, @chapter)
   end
 
   private
@@ -22,7 +37,11 @@ class ChapterReviewsController < ApplicationController
     @chapter = Chapter.find(params[:chapter_id])
   end
 
+  def set_chapter_review
+    @chapter_review = @chapter.chapter_reviews.find(params[:id])
+  end
+
   def chapter_review_params
-    params.require(:chapter_review).permit(:comment, :rating)
+    params.require(:chapter_review).permit(:content, :rating)
   end
 end

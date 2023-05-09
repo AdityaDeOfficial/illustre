@@ -6,4 +6,6 @@ class User < ApplicationRecord
 
   has_many :bookmarks, dependent: :destroy
   has_many :mangas
+  has_many :manga_reviews
+  has_many :chapter_reviews
 end

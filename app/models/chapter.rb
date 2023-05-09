@@ -1,5 +1,5 @@
 class Chapter < ApplicationRecord
   belongs_to :manga
-  has_one_attached :pdf
-  has_many :chapter_reviews, dependent: :destroy
+  has_many_attached :chapter_photos
+  has_many :chapter_reviews
 end

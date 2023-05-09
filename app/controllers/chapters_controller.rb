@@ -3,7 +3,7 @@ class ChaptersController < ApplicationController
   before_action :set_chapter, only: [:show, :edit, :update, :destroy]
 
   def index
-    @chapters = @manga.chapters.order(chapter_number: :asc)
+    @chapters = @manga.chapters
   end
 
   def show
@@ -11,6 +11,9 @@ class ChaptersController < ApplicationController
 
   def new
     @chapter = @manga.chapters.build
+  end
+
+  def edit
   end
 
   def create
@@ -21,9 +24,6 @@ class ChaptersController < ApplicationController
     else
       render :new
     end
-  end
-
-  def edit
   end
 
   def update
@@ -50,6 +50,6 @@ class ChaptersController < ApplicationController
   end
 
   def chapter_params
-    params.require(:chapter).permit(:chapter_title, :chapter_number, pdf_files: [])
+    params.require(:chapter).permit(:chapter_title, :chapter_number, :manga_id, chapter_photos: [])
   end
 end
