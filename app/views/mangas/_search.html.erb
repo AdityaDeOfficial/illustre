@@ -1,5 +1,5 @@
 <div class="container" data-controller="navbar-manga-search">
-  <div class="row justify-content-center">
+  <div class="row justify-content-center" data-controller="random">
     <div class="col-sm-8">
       <%= form_with url: mangas_path, method: :get, class: "d-flex",
           form: {id: "search-form"},
@@ -7,12 +7,13 @@
         <%= text_field_tag :query,
           params[:query],
           class: "form-control",
-          placeholder: "Find a manga" %>
+          placeholder: "Find a manga",
+          data: {action: "focusin->navbar-manga-search#showResults"} %>
         <%= submit_tag "Search", name: "", class: "btn btn-primary" %>
       <% end %>
 
       <ul>
-        <div data-navbar-manga-search-target="results">
+        <div data-navbar-manga-search-target="results" class="d-none">
           <% if !@mangas.nil? %>
             <% @mangas.each do |manga| %>
               <li><%= render 'mangas/results', manga: manga %></li>
