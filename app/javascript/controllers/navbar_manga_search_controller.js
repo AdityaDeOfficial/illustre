@@ -15,16 +15,24 @@ export default class extends Controller {
 
     submit(event) {
       event.preventDefault();
-        // our url for where fetch AJAX happening is action="/mangas"
+      // our url for where fetch AJAX happening is action="/mangas"
       fetch(this.formTarget.action, {
         method: "GET",
         headers: { "Accept": "application/json" },
         body: new FormData(this.formTarget)
-       })
-      .then(response => response.json())
-      .then(data => {
-          console.log(data)
       })
+      .then(response => response.json())
+      .then((data) => {
+        if (data.search_results) {
+          // console.log(data)
+          // console.log('user query',data.search_results)
+          // console.log('blank',data.empty_form)
+
+          // insert the user query
+          this.itemsTarget.insertAdjacentHTML("beforeend", data.search_results);
+        }
+        this.formTarget.outerHTML = data.search;
+      });
     }
   }
 }

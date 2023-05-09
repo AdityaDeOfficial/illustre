@@ -2,5 +2,5 @@
 if params[:query].present?
   json.search_results render(partial: '/mangas/results', formats: :html,locals: { manga: @manga })
 else
-  json.search_form render(partial: '/mangas/search', formats: :html,locals: { mangas: @mangas, manga: Manga.all })
+  json.empty_form render(partial: '/mangas/search', formats: :html,locals: { mangas: @mangas, manga: Manga.all })
 end
