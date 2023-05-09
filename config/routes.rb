@@ -3,15 +3,15 @@ Rails.application.routes.draw do
   root 'mangas#index'
 
   resources :mangas do
-    resources :chapters, shallow: true
-    resources :chapter_reviews, only: [:new, :create, :destroy]
+    resources :manga_reviews, only: [:create, :update, :destroy]
     resources :bookmarks, only: [:create, :destroy]
+    resources :chapters do
+      resources :chapter_reviews, only: [:create, :update, :destroy]
+    end
     #get top manga ranking
     collection do
       get :top
     end
-
-    resources :manga_reviews, only: [:new, :create, :destroy]
   end
 
   get "dashboard", to: "pages#dashboard"
