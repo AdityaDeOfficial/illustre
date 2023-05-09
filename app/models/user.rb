@@ -6,4 +6,7 @@ class User < ApplicationRecord
 
   has_many :bookmarks, dependent: :destroy
   has_many :mangas
+
+  acts_as_taggable_on :tags
+  acts_as_taggable_on :skills, :interests #You can also configure multiple tag types per model
 end
