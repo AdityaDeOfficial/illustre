@@ -8,6 +8,11 @@ class MangasController < ApplicationController
     else
       @mangas = Manga.all
     end
+
+    respond_to do |format|
+      format.html # default format, renders index.html.erb
+      format.json { render json: @mangas } # renders JSON
+    end
   end
 
   # GET /mangas/1
