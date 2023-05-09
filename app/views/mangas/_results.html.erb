@@ -1,0 +1,10 @@
+<div class="manga-result">
+  <%= link_to manga_path(manga) do %>
+    <% if manga.cover_image %>
+      <%= image_tag manga.cover_image["thumbnail"], alt: manga.manga_title %>
+      <h4><%= manga.manga_title %></h4>
+    <% else %>
+      <h4><%= manga.manga_title %></h4>
+    <% end %>
+  <% end %>
+</div>
