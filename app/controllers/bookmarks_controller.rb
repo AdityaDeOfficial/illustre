@@ -1,31 +1,20 @@
 class BookmarksController < ApplicationController
-  def new
-    @manga = Manga.find(params[:manga_id])
-    @bookmark = Bookmark.new
-  end
-
   def create
+    # @manga = Manga.find(params[:manga_id])
     @manga = Manga.find(params[:manga_id])
-    @user = current_user
-    @bookmarks = Bookmark.where(id: params.dig(:bookmark, :tag))
-    return render_new if @bookmarks.empty?
-
-    ActiveRecord::Base.transaction do
-      @bookmarks.each do |bookmark|
-        bookmark = Bookmark.new(manga: @manga, bookmark: bookmark)
-        bookmark.save!
-      end
-      redirect_to manga_path(@manga.manga)
+    @bookmark = Bookmark.new(bookmark_params)
+    @bookmark.user = current_user
+    @bookmark.manga = @manga
+    if @bookmark.save!
+      redirect_to @manga, notice: 'You bookmarked this manga!'
+    else
+      render manga_path(@manga)
     end
-  rescue ActiveRecord::RecordInvalid
-    render_new
   end
 
   private
 
-  def render_new
-    @bookmark = Bookmark.new
-    @bookmark.errors.add(:base, "You have already bookmarked it")
-    render :new, status: :unprocessable_entity
+  def bookmark_params
+    params.require(:bookmark).permit(:manga_id)
   end
 end

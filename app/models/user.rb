@@ -5,5 +5,5 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :bookmarks, dependent: :destroy
-  has_many :mangas, through: :bookmarks
+  has_many :mangas
 end
