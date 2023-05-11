@@ -8,8 +8,10 @@ class MangasController < ApplicationController
     else
       @mangas = Manga.all
     end
+    @open_search = params[:open_search] == "true"
 
     respond_to do |format|
+      # format.turbo_stream { render layout: 'application' }
       format.html # default format, renders index.html.erb
       format.json { render json: @mangas } # renders JSON
     end
